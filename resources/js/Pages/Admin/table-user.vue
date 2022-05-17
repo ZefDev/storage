@@ -1,34 +1,33 @@
 <template>
-    <table class="table-fixed m-2 dark:bg-gray-800 dark:text-white">
+    <table class="table">
         <thead>
         <tr>
-            <th class="w-1/7 ...">ID</th>
-            <th class="w-1/5 ...">{{__('Name')}}</th>
-            <th class="w-1/5 ...">{{__('Email')}}</th>
-            <th class="w-1/6 ...">{{__('Admin title')}}</th>
-            <th class="w-1/6 ...">{{__('Blocked')}}</th>
-            <th class="w-1/5 ...">{{__('Created At')}}</th>
-            <th class="w-1/2 ...">{{__('Options')}}</th>
+            <th class="col">ID</th>
+            <th class="col">Name</th>
+            <th class="col">Email</th>
+            <th class="col">Admin</th>
+            <th class="col">Blocked</th>
+            <th class="col">Created At</th>
+            <th class="col">Options</th>
         </tr>
         </thead>
         <tbody>
             <tr v-for="user in users" :key="user.id">
                 <td class="align-middle">{{ user.id }}</td>
-                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 whitespace-nowrap p-4 text-left flex items-center">
-                    <img class="h-14 w-14 object-cover object-center rounded-full" :src="user.profile_photo_path" alt="photo">
+                <td>
                     <span class="ml-3"> {{ user.name }} </span>
                 </td>
-                <td class="text-center">{{ user.email }}</td>
-                <td class="text-center">
+                <td>{{ user.email }}</td>
+                <td>
                     <input type="checkbox" :checked="user.isAdmin" @click="setAdmin(user.id)">
                 </td>
-                <td class="text-center">
+                <td>
                     <input type="checkbox" :checked="user.isBlock" @click="setBlock(user.id)">
                 </td>
-                <td class="text-center">{{ user.created_at }}</td>
+                <td>{{ user.created_at }}</td>
                 <td>
-                    <button @click="deleteUser(user.id)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                        {{__('Delete')}}
+                    <button @click="deleteUser(user.id)" type="button" class="btn btn-danger">
+                        Delete
                     </button>
                 </td>
             </tr>

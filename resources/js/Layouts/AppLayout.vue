@@ -20,10 +20,14 @@
             <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
               Dashboard
             </jet-nav-link>
+            <jet-nav-link v-if="$page.props.user.isAdmin" :href="route('admin')" :active="route().current('admin')">
+              Admin
+            </jet-nav-link>
           </ul>
 
           <!-- Right Side Of Navbar -->
           <ul class="navbar-nav align-items-baseline">
+            <language-selector class="" v-show="false"></language-selector>
             <!-- Team Management -->
             <jet-dropdown id="teamManagementDropdown" v-if="$page.props.jetstream.hasTeamFeatures">
               <template #trigger>
@@ -138,6 +142,7 @@ import JetDropdown from '@/Jetstream/Dropdown.vue'
 import JetDropdownLink from '@/Jetstream/DropdownLink.vue'
 import JetNavLink from '@/Jetstream/NavLink.vue'
 import { Head, Link } from '@inertiajs/inertia-vue3'
+import LanguageSelector from "../Shared/LanguageSelector";
 
 export default {
   props: {
@@ -153,6 +158,7 @@ export default {
     JetDropdownLink,
     JetNavLink,
     Link,
+    LanguageSelector,
   },
 
   data() {

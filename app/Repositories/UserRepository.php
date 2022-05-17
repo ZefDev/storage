@@ -22,9 +22,6 @@ class UserRepository{
         $user->isDelete = true;
         $user->name = "Deleted User";
         $user->email = "Deleted User";
-        $user->profile_photo_path = "https://www.dropbox.com/s/y1pl7145jzzpn7k/fc15c8d9f8fe6b79f9778a26e8e03fd4.jpg?dl=1";
-        $user->provider = "Deleted User";
-        $user->provider_id = "Deleted User";
         return $user->save();
     }
 

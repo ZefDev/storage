@@ -35,10 +35,18 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::middleware(['auth:sanctum', 'verified','role','isBlock'])->group(function () {
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'),'verified','role','isBlock'])->group(function () {
     Route::get('/admin', [UserController::class, 'index'])->name('admin');
     Route::get('/admin/users', [UserController::class, 'users']);
     Route::get('/admin/users/{id}/delete', [UserController::class, 'delete']);
     Route::get('/admin/users/{id}/set-block', [UserController::class, 'setBlock']);
     Route::get('/admin/users/{id}/set-admin', [UserController::class, 'setAdmin']);
 });
+
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/block', [DashboardController::class, 'indexBlock'])->name('block');
+
+Route::get('language/{language}', function ($language) {
+    Session()->put('locale', $language);
+    return redirect()->back();
+})->name('language');
