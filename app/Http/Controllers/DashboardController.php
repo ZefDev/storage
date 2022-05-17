@@ -28,4 +28,20 @@ class DashboardController extends Controller
     public function indexBlock(){
         return Inertia::render('Block');
     }
+
+    public function createFile(){
+
+    }
+
+    public function updateFile(){
+
+    }
+
+    public function uploadFile(){
+
+    }
+
+    public function deleteFile(){
+
+    }
 }

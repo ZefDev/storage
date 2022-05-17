@@ -5,6 +5,7 @@
             <th class="col">ID</th>
             <th class="col">Name</th>
             <th class="col">Email</th>
+            <th class="col">Limit</th>
             <th class="col">Admin</th>
             <th class="col">Blocked</th>
             <th class="col">Created At</th>
@@ -18,6 +19,7 @@
                     <span class="ml-3"> {{ user.name }} </span>
                 </td>
                 <td>{{ user.email }}</td>
+                <td>{{ user.limit }}</td>
                 <td>
                     <input type="checkbox" :checked="user.isAdmin" @click="setAdmin(user.id)">
                 </td>
