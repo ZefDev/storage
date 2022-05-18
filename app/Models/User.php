@@ -29,7 +29,7 @@ class User extends Authenticatable
         'password',
         'provider_id',
         'provider',
-        'profile_photo_path',
+        'directory',
     ];
 
     /**

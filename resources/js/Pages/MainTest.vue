@@ -20,16 +20,11 @@
 
             <div class="file-manager-actions container-p-x py-2">
               <div>
-                <button type="button" class="btn btn-primary mr-2"><i class="ion ion-md-cloud-upload"></i>&nbsp; Upload</button>
-                <button type="button" class="btn btn-secondary icon-btn mr-2" disabled=""><i class="ion ion-md-cloud-download"></i></button>
-                <div class="btn-group mr-2">
-                  <button type="button" class="btn btn-default md-btn-flat dropdown-toggle px-2" data-toggle="dropdown"><i class="ion ion-ios-settings"></i></button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="javascript:void(0)">Move</a>
-                    <a class="dropdown-item" href="javascript:void(0)">Copy</a>
-                    <a class="dropdown-item" href="javascript:void(0)">Remove</a>
-                  </div>
-                </div>
+
+                <input type="file" accept="*/*" multiple="multiple" @change="previewMultiImage" id="file">
+
+                <button type="button" class="btn btn-primary mr-2" @click="uploadFile"><i class="ion ion-md-cloud-upload"></i>&nbsp; Upload</button>
+
               </div>
             </div>
 
@@ -404,6 +399,33 @@ export default defineComponent({
         canRegister: Boolean,
         laravelVersion: String,
         phpVersion: String,
-    }
+    },
+    data: function (){
+        return{
+            files_list: [],
+        }
+    },
+    methods:{
+        uploadFile(){
+            let data = new FormData();
+            let filesLength=document.getElementById('file').files.length;
+            for(var i=0;i<filesLength;i++){
+                data.append("file[]", document.getElementById('file').files[i]);
+            }
+            data.append('csrfToken', document.getElementsByName('csrf-token')[0].getAttribute('content'));
+
+            axios.post('/file/upload', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(response=>{
+                console.log(response.data);
+                // Загрузка списка файлов
+            })
+            .catch(error =>{
+                console.log(error);
+            });
+        }
+    },
 })
 </script>

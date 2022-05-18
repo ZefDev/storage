@@ -26195,6 +26195,32 @@ __webpack_require__.r(__webpack_exports__);
     canRegister: Boolean,
     laravelVersion: String,
     phpVersion: String
+  },
+  data: function data() {
+    return {
+      files_list: []
+    };
+  },
+  methods: {
+    uploadFile: function uploadFile() {
+      var data = new FormData();
+      var filesLength = document.getElementById('file').files.length;
+
+      for (var i = 0; i < filesLength; i++) {
+        data.append("file[]", document.getElementById('file').files[i]);
+      }
+
+      data.append('csrfToken', document.getElementsByName('csrf-token')[0].getAttribute('content'));
+      axios.post('/file/upload', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        console.log(response.data); // Загрузка списка файлов
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
   }
 }));
 
@@ -30082,11 +30108,90 @@ var _withScopeId = function _withScopeId(n) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-622a1314"), n = n(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(), n;
 };
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css\" integrity=\"sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=\" crossorigin=\"anonymous\" data-v-622a1314><link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css\" integrity=\"sha512-0/rEDduZGrqo4riUlwqyuHDQzp2D1ZCgH/gFIfjMIL5az8so6ZiXyhf1Rg8i6xsjv+z/Ubc4tt1thLigEcu6Ug==\" crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\" data-v-622a1314><div class=\"container flex-grow-1 light-style container-p-y\" data-v-622a1314><div class=\"row\" data-v-622a1314><div class=\"col-md-8\" data-v-622a1314><div class=\"container-m-nx container-m-ny bg-lightest mb-3\" data-v-622a1314><ol class=\"breadcrumb text-big container-p-x py-3 m-0\" data-v-622a1314><li class=\"breadcrumb-item\" data-v-622a1314><a href=\"javascript:void(0)\" data-v-622a1314>home</a></li><li class=\"breadcrumb-item\" data-v-622a1314><a href=\"javascript:void(0)\" data-v-622a1314>projects</a></li><li class=\"breadcrumb-item active\" data-v-622a1314>site</li></ol><hr class=\"m-0\" data-v-622a1314><div class=\"file-manager-actions container-p-x py-2\" data-v-622a1314><div data-v-622a1314><button type=\"button\" class=\"btn btn-primary mr-2\" data-v-622a1314><i class=\"ion ion-md-cloud-upload\" data-v-622a1314></i>  Upload</button><button type=\"button\" class=\"btn btn-secondary icon-btn mr-2\" disabled=\"\" data-v-622a1314><i class=\"ion ion-md-cloud-download\" data-v-622a1314></i></button><div class=\"btn-group mr-2\" data-v-622a1314><button type=\"button\" class=\"btn btn-default md-btn-flat dropdown-toggle px-2\" data-toggle=\"dropdown\" data-v-622a1314><i class=\"ion ion-ios-settings\" data-v-622a1314></i></button><div class=\"dropdown-menu\" data-v-622a1314><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Move</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Copy</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Remove</a></div></div></div></div><hr class=\"m-0\" data-v-622a1314></div><div class=\"file-manager-container file-manager-col-view\" data-v-622a1314><div class=\"file-manager-row-header\" data-v-622a1314><div class=\"file-item-name pb-2\" data-v-622a1314>Filename</div><div class=\"file-item-changed pb-2\" data-v-622a1314>Changed</div></div><div class=\"file-item\" data-v-622a1314><div class=\"file-item-icon file-item-level-up fas fa-level-up-alt text-secondary\" data-v-622a1314></div><a href=\"javascript:void(0)\" class=\"file-item-name\" data-v-622a1314> .. </a></div><div class=\"file-item\" data-v-622a1314><div class=\"file-item-select-bg bg-primary\" data-v-622a1314></div><label class=\"file-item-checkbox custom-control custom-checkbox\" data-v-622a1314><input type=\"checkbox\" class=\"custom-control-input\" data-v-622a1314><span class=\"custom-control-label\" data-v-622a1314></span></label><div class=\"file-item-icon far fa-folder text-secondary\" data-v-622a1314></div><a href=\"javascript:void(0)\" class=\"file-item-name\" data-v-622a1314> Images </a><div class=\"file-item-changed\" data-v-622a1314>02/13/2018</div><div class=\"file-item-actions btn-group\" data-v-622a1314><button type=\"button\" class=\"btn btn-default btn-sm rounded-pill icon-btn borderless md-btn-flat hide-arrow dropdown-toggle\" data-toggle=\"dropdown\" data-v-622a1314><i class=\"ion ion-ios-more\" data-v-622a1314></i></button><div class=\"dropdown-menu dropdown-menu-right\" data-v-622a1314><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Rename</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Move</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Copy</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Remove</a></div></div></div><div class=\"file-item\" data-v-622a1314><div class=\"file-item-select-bg bg-primary\" data-v-622a1314></div><label class=\"file-item-checkbox custom-control custom-checkbox\" data-v-622a1314><input type=\"checkbox\" class=\"custom-control-input\" data-v-622a1314><span class=\"custom-control-label\" data-v-622a1314></span></label><div class=\"file-item-img\" style=\"background-image:url(https://bootdey.com/img/Content/avatar/avatar1.png);\" data-v-622a1314></div><a href=\"javascript:void(0)\" class=\"file-item-name\" data-v-622a1314> Image-1.jpg </a><div class=\"file-item-changed\" data-v-622a1314>02/20/2018</div><div class=\"file-item-actions btn-group\" data-v-622a1314><button type=\"button\" class=\"btn btn-default btn-sm rounded-pill icon-btn borderless md-btn-flat hide-arrow dropdown-toggle\" data-toggle=\"dropdown\" data-v-622a1314><i class=\"ion ion-ios-more\" data-v-622a1314></i></button><div class=\"dropdown-menu dropdown-menu-right\" data-v-622a1314><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Rename</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Move</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Copy</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Remove</a></div></div></div></div></div><div class=\"col-md-4\" data-v-622a1314><p data-v-622a1314>Информация</p><p data-v-622a1314>Имя: pic.jpg</p><p data-v-622a1314>Размер: 600 кб</p><p data-v-622a1314>Загружен: 04.08.2022 12:10</p><p data-v-622a1314>Общий доступ: нет</p><img src=\"https://bootdey.com/img/Content/avatar/avatar1.png\" alt=\"\" data-v-622a1314><br data-v-622a1314><button type=\"button\" data-v-622a1314>Скачать</button><button type=\"button\" data-v-622a1314>Поделится</button><button type=\"button\" data-v-622a1314>Удалить</button></div></div></div>", 3);
+var _hoisted_1 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("link", {
+    rel: "stylesheet",
+    href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css",
+    integrity: "sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=",
+    crossorigin: "anonymous"
+  }, null, -1
+  /* HOISTED */
+  );
+});
 
-var _hoisted_4 = [_hoisted_1];
+var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("link", {
+    rel: "stylesheet",
+    href: "https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css",
+    integrity: "sha512-0/rEDduZGrqo4riUlwqyuHDQzp2D1ZCgH/gFIfjMIL5az8so6ZiXyhf1Rg8i6xsjv+z/Ubc4tt1thLigEcu6Ug==",
+    crossorigin: "anonymous",
+    referrerpolicy: "no-referrer"
+  }, null, -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_3 = {
+  "class": "container flex-grow-1 light-style container-p-y"
+};
+var _hoisted_4 = {
+  "class": "row"
+};
+var _hoisted_5 = {
+  "class": "col-md-8"
+};
+var _hoisted_6 = {
+  "class": "container-m-nx container-m-ny bg-lightest mb-3"
+};
+
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<ol class=\"breadcrumb text-big container-p-x py-3 m-0\" data-v-622a1314><li class=\"breadcrumb-item\" data-v-622a1314><a href=\"javascript:void(0)\" data-v-622a1314>home</a></li><li class=\"breadcrumb-item\" data-v-622a1314><a href=\"javascript:void(0)\" data-v-622a1314>projects</a></li><li class=\"breadcrumb-item active\" data-v-622a1314>site</li></ol><hr class=\"m-0\" data-v-622a1314>", 2);
+
+var _hoisted_9 = {
+  "class": "file-manager-actions container-p-x py-2"
+};
+
+var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    "class": "ion ion-md-cloud-upload"
+  }, null, -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("  Upload");
+
+var _hoisted_12 = [_hoisted_10, _hoisted_11];
+
+var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", {
+    "class": "m-0"
+  }, null, -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"file-manager-container file-manager-col-view\" data-v-622a1314><div class=\"file-manager-row-header\" data-v-622a1314><div class=\"file-item-name pb-2\" data-v-622a1314>Filename</div><div class=\"file-item-changed pb-2\" data-v-622a1314>Changed</div></div><div class=\"file-item\" data-v-622a1314><div class=\"file-item-icon file-item-level-up fas fa-level-up-alt text-secondary\" data-v-622a1314></div><a href=\"javascript:void(0)\" class=\"file-item-name\" data-v-622a1314> .. </a></div><div class=\"file-item\" data-v-622a1314><div class=\"file-item-select-bg bg-primary\" data-v-622a1314></div><label class=\"file-item-checkbox custom-control custom-checkbox\" data-v-622a1314><input type=\"checkbox\" class=\"custom-control-input\" data-v-622a1314><span class=\"custom-control-label\" data-v-622a1314></span></label><div class=\"file-item-icon far fa-folder text-secondary\" data-v-622a1314></div><a href=\"javascript:void(0)\" class=\"file-item-name\" data-v-622a1314> Images </a><div class=\"file-item-changed\" data-v-622a1314>02/13/2018</div><div class=\"file-item-actions btn-group\" data-v-622a1314><button type=\"button\" class=\"btn btn-default btn-sm rounded-pill icon-btn borderless md-btn-flat hide-arrow dropdown-toggle\" data-toggle=\"dropdown\" data-v-622a1314><i class=\"ion ion-ios-more\" data-v-622a1314></i></button><div class=\"dropdown-menu dropdown-menu-right\" data-v-622a1314><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Rename</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Move</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Copy</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Remove</a></div></div></div><div class=\"file-item\" data-v-622a1314><div class=\"file-item-select-bg bg-primary\" data-v-622a1314></div><label class=\"file-item-checkbox custom-control custom-checkbox\" data-v-622a1314><input type=\"checkbox\" class=\"custom-control-input\" data-v-622a1314><span class=\"custom-control-label\" data-v-622a1314></span></label><div class=\"file-item-img\" style=\"background-image:url(https://bootdey.com/img/Content/avatar/avatar1.png);\" data-v-622a1314></div><a href=\"javascript:void(0)\" class=\"file-item-name\" data-v-622a1314> Image-1.jpg </a><div class=\"file-item-changed\" data-v-622a1314>02/20/2018</div><div class=\"file-item-actions btn-group\" data-v-622a1314><button type=\"button\" class=\"btn btn-default btn-sm rounded-pill icon-btn borderless md-btn-flat hide-arrow dropdown-toggle\" data-toggle=\"dropdown\" data-v-622a1314><i class=\"ion ion-ios-more\" data-v-622a1314></i></button><div class=\"dropdown-menu dropdown-menu-right\" data-v-622a1314><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Rename</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Move</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Copy</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Remove</a></div></div></div></div>", 1);
+
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"col-md-4\" data-v-622a1314><p data-v-622a1314>Информация</p><p data-v-622a1314>Имя: pic.jpg</p><p data-v-622a1314>Размер: 600 кб</p><p data-v-622a1314>Загружен: 04.08.2022 12:10</p><p data-v-622a1314>Общий доступ: нет</p><img src=\"https://bootdey.com/img/Content/avatar/avatar1.png\" alt=\"\" data-v-622a1314><br data-v-622a1314><button type=\"button\" data-v-622a1314>Скачать</button><button type=\"button\" data-v-622a1314>Поделится</button><button type=\"button\" data-v-622a1314>Удалить</button></div>", 1);
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, _hoisted_4);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [_hoisted_1, _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "file",
+    accept: "*/*",
+    multiple: "multiple",
+    onChange: _cache[0] || (_cache[0] = function () {
+      return _ctx.previewMultiImage && _ctx.previewMultiImage.apply(_ctx, arguments);
+    }),
+    id: "file"
+  }, null, 32
+  /* HYDRATE_EVENTS */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
+    "class": "btn btn-primary mr-2",
+    onClick: _cache[1] || (_cache[1] = function () {
+      return _ctx.uploadFile && _ctx.uploadFile.apply(_ctx, arguments);
+    })
+  }, _hoisted_12)])]), _hoisted_13]), _hoisted_14]), _hoisted_15])])]);
 }
 
 /***/ }),

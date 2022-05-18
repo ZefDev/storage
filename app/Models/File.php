@@ -8,7 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class File extends Model
 {
     use HasFactory;
-    
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'name',
+        'user_id',
+        'path',
+        'size',
+        'type',
+        'file_uploaded_at',
+    ];
+
     public function user(){
         return $this->belongsTo(User::class);
     }

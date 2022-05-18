@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-//use App\Services\TaskService;
+use Illuminate\Support\Facades\Auth;
+
+use App\Services\FileService;
 
 class DashboardController extends Controller
 {
-    //protected $taskService;
-//    public function __construct(TaskService $taskService)
-//    {
-//        $this->taskService = $taskService;
-//    }
+    protected $fileService;
+    public function __construct(FileService $fileService)
+    {
+        $this->fileService = $fileService;
+    }
 //    public function index(){
 //
 //        $lastTask = $this->taskService->getLastTasks(4);
@@ -37,11 +39,15 @@ class DashboardController extends Controller
 
     }
 
-    public function uploadFile(){
+    public function uploadFile(Request $reguest){
 
+        if($reguest->has('file')){
+            $this->fileService->upload($reguest->file('file'),Auth::user());
+        }
     }
 
     public function deleteFile(){
 
     }
+    
 }

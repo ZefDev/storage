@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'),'verified','
     Route::get('/admin/users/{id}/delete', [UserController::class, 'delete']);
     Route::get('/admin/users/{id}/set-block', [UserController::class, 'setBlock']);
     Route::get('/admin/users/{id}/set-admin', [UserController::class, 'setAdmin']);
+});
+
+Route::middleware(['auth:sanctum', 'verified','isBlock'])->group(function () {
+
+    Route::post('/file/upload', [DashboardController::class, 'uploadFile']);
 });
 
 Route::middleware(['auth:sanctum', 'verified'])
