@@ -6,7 +6,7 @@
       </h2>
 
     </template>
-    <main-test/>
+    <main-test :listFiles="listFiles" />
 
   </app-layout>
 </template>
@@ -20,6 +20,9 @@ export default defineComponent({
   components: {
     AppLayout,
     MainTest
-  }
+  },
+  props: {
+      listFiles: Array,
+  },
 });
 </script>

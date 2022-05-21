@@ -31,9 +31,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'),'verified','role','isBlock'])->group(function () {
@@ -47,6 +45,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'),'verified','
 Route::middleware(['auth:sanctum', 'verified','isBlock'])->group(function () {
 
     Route::post('/file/upload', [DashboardController::class, 'uploadFile']);
+    Route::get('/file/download/{id}', [DashboardController::class, 'downloadFile']);
 });
 
 Route::middleware(['auth:sanctum', 'verified'])

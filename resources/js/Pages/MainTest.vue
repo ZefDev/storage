@@ -45,6 +45,28 @@
               </a>
             </div>
 
+
+
+
+            <div v-for="file in listFiles" :key="file.id" class="file-item" @click="clickByFile(file)">
+              <div class="file-item-select-bg bg-primary"></div>
+              <label class="file-item-checkbox custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" />
+                <span class="custom-control-label"></span>
+              </label>
+              <div class="file-item-img" :style="{
+                  'background-image': `url(${file.path})`,
+                }"></div>
+              <a href="javascript:void(0)" class="file-item-name">
+                {{file.name}}
+              </a>
+            </div>
+
+
+
+
+
+
             <div class="file-item">
               <div class="file-item-select-bg bg-primary"></div>
               <label class="file-item-checkbox custom-control custom-checkbox">
@@ -91,17 +113,17 @@
 
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" v-if="selectedFile">
           <p>Информация</p>
-          <p>Имя: pic.jpg</p>
-          <p>Размер: 600 кб</p>
-          <p>Загружен: 04.08.2022 12:10</p>
+          <p>Имя: {{selectedFile.name}}</p>
+          <p>Размер: {{selectedFile.size}}</p>
+          <p>Загружен: {{selectedFile.file_uploaded_at}}</p>
           <p>Общий доступ: нет</p>
-          <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+          <img :src="selectedFile.path" alt="" class="preview_image">
           <br>
-          <button type="button">Скачать</button>
-          <button type="button">Поделится</button>
-          <button type="button">Удалить</button>
+          <a :href="'/file/download/'+selectedFile.id" class="btn btn-primary">Download</a>
+          <a class="btn btn-primary">Share</a>
+          <a class="btn btn-danger">Delete</a>
         </div>
       </div>
 
@@ -112,6 +134,10 @@
 
 <style scoped>
 body{margin-top:20px;}
+.preview_image{
+    max-width: 400px;
+    max-height: 400px;
+}
 .file-manager-actions {
     display: -ms-flexbox;
     display: flex;
@@ -399,10 +425,12 @@ export default defineComponent({
         canRegister: Boolean,
         laravelVersion: String,
         phpVersion: String,
+        listFiles: Array,
     },
     data: function (){
         return{
             files_list: [],
+            selectedFile: null,
         }
     },
     methods:{
@@ -419,6 +447,18 @@ export default defineComponent({
                     'Content-Type': 'multipart/form-data'
                 }
             }).then(response=>{
+                console.log(response.data);
+                // Загрузка списка файлов
+            })
+            .catch(error =>{
+                console.log(error);
+            });
+        },
+        clickByFile(file){
+            this.selectedFile = file;
+        },
+        downloadSelectedFile(file){
+            axios.get(`/file/download/${file.id}`).then(response=>{
                 console.log(response.data);
                 // Загрузка списка файлов
             })

@@ -34,14 +34,21 @@ class FileService
             $data = array(
                 'name' => basename($path),
                 'user_id' => $user->id,
-                'path' => $path,
+                'path' => $path, //Storage::url(
                 'size' => $size,
                 'type' => '1',
-                'file_uploaded_at' => now()->timestamp,
+                'file_uploaded_at' => now()->toDateTime(),
             );
 
             $this->fileRepository->save($data);
         }
+    }
+    public function getFileByid($id){
+        return $this->fileRepository->getFileByid($id);
+    }
+
+    public function getFiles($id){
+        return $this->fileRepository->getFiles($id);
     }
 
     public function update($id){

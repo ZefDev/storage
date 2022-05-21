@@ -26165,6 +26165,9 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     AppLayout: _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     MainTest: _Pages_MainTest_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  props: {
+    listFiles: Array
   }
 }));
 
@@ -26194,11 +26197,13 @@ __webpack_require__.r(__webpack_exports__);
     canLogin: Boolean,
     canRegister: Boolean,
     laravelVersion: String,
-    phpVersion: String
+    phpVersion: String,
+    listFiles: Array
   },
   data: function data() {
     return {
-      files_list: []
+      files_list: [],
+      selectedFile: null
     };
   },
   methods: {
@@ -26216,6 +26221,16 @@ __webpack_require__.r(__webpack_exports__);
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
+        console.log(response.data); // Загрузка списка файлов
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    clickByFile: function clickByFile(file) {
+      this.selectedFile = file;
+    },
+    downloadSelectedFile: function downloadSelectedFile(file) {
+      axios.get("/file/download/".concat(file.id)).then(function (response) {
         console.log(response.data); // Загрузка списка файлов
       })["catch"](function (error) {
         console.log(error);
@@ -30080,7 +30095,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [_hoisted_1];
     }),
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_main_test)];
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_main_test, {
+        listFiles: _ctx.listFiles
+      }, null, 8
+      /* PROPS */
+      , ["listFiles"])];
     }),
     _: 1
     /* STABLE */
@@ -30170,9 +30189,84 @@ var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"file-manager-container file-manager-col-view\" data-v-622a1314><div class=\"file-manager-row-header\" data-v-622a1314><div class=\"file-item-name pb-2\" data-v-622a1314>Filename</div><div class=\"file-item-changed pb-2\" data-v-622a1314>Changed</div></div><div class=\"file-item\" data-v-622a1314><div class=\"file-item-icon file-item-level-up fas fa-level-up-alt text-secondary\" data-v-622a1314></div><a href=\"javascript:void(0)\" class=\"file-item-name\" data-v-622a1314> .. </a></div><div class=\"file-item\" data-v-622a1314><div class=\"file-item-select-bg bg-primary\" data-v-622a1314></div><label class=\"file-item-checkbox custom-control custom-checkbox\" data-v-622a1314><input type=\"checkbox\" class=\"custom-control-input\" data-v-622a1314><span class=\"custom-control-label\" data-v-622a1314></span></label><div class=\"file-item-icon far fa-folder text-secondary\" data-v-622a1314></div><a href=\"javascript:void(0)\" class=\"file-item-name\" data-v-622a1314> Images </a><div class=\"file-item-changed\" data-v-622a1314>02/13/2018</div><div class=\"file-item-actions btn-group\" data-v-622a1314><button type=\"button\" class=\"btn btn-default btn-sm rounded-pill icon-btn borderless md-btn-flat hide-arrow dropdown-toggle\" data-toggle=\"dropdown\" data-v-622a1314><i class=\"ion ion-ios-more\" data-v-622a1314></i></button><div class=\"dropdown-menu dropdown-menu-right\" data-v-622a1314><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Rename</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Move</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Copy</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Remove</a></div></div></div><div class=\"file-item\" data-v-622a1314><div class=\"file-item-select-bg bg-primary\" data-v-622a1314></div><label class=\"file-item-checkbox custom-control custom-checkbox\" data-v-622a1314><input type=\"checkbox\" class=\"custom-control-input\" data-v-622a1314><span class=\"custom-control-label\" data-v-622a1314></span></label><div class=\"file-item-img\" style=\"background-image:url(https://bootdey.com/img/Content/avatar/avatar1.png);\" data-v-622a1314></div><a href=\"javascript:void(0)\" class=\"file-item-name\" data-v-622a1314> Image-1.jpg </a><div class=\"file-item-changed\" data-v-622a1314>02/20/2018</div><div class=\"file-item-actions btn-group\" data-v-622a1314><button type=\"button\" class=\"btn btn-default btn-sm rounded-pill icon-btn borderless md-btn-flat hide-arrow dropdown-toggle\" data-toggle=\"dropdown\" data-v-622a1314><i class=\"ion ion-ios-more\" data-v-622a1314></i></button><div class=\"dropdown-menu dropdown-menu-right\" data-v-622a1314><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Rename</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Move</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Copy</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Remove</a></div></div></div></div>", 1);
+var _hoisted_14 = {
+  "class": "file-manager-container file-manager-col-view"
+};
 
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"col-md-4\" data-v-622a1314><p data-v-622a1314>Информация</p><p data-v-622a1314>Имя: pic.jpg</p><p data-v-622a1314>Размер: 600 кб</p><p data-v-622a1314>Загружен: 04.08.2022 12:10</p><p data-v-622a1314>Общий доступ: нет</p><img src=\"https://bootdey.com/img/Content/avatar/avatar1.png\" alt=\"\" data-v-622a1314><br data-v-622a1314><button type=\"button\" data-v-622a1314>Скачать</button><button type=\"button\" data-v-622a1314>Поделится</button><button type=\"button\" data-v-622a1314>Удалить</button></div>", 1);
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"file-manager-row-header\" data-v-622a1314><div class=\"file-item-name pb-2\" data-v-622a1314>Filename</div><div class=\"file-item-changed pb-2\" data-v-622a1314>Changed</div></div><div class=\"file-item\" data-v-622a1314><div class=\"file-item-icon file-item-level-up fas fa-level-up-alt text-secondary\" data-v-622a1314></div><a href=\"javascript:void(0)\" class=\"file-item-name\" data-v-622a1314> .. </a></div>", 2);
+
+var _hoisted_17 = ["onClick"];
+
+var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "file-item-select-bg bg-primary"
+  }, null, -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_19 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "file-item-checkbox custom-control custom-checkbox"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "checkbox",
+    "class": "custom-control-input"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    "class": "custom-control-label"
+  })], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_20 = {
+  href: "javascript:void(0)",
+  "class": "file-item-name"
+};
+
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"file-item\" data-v-622a1314><div class=\"file-item-select-bg bg-primary\" data-v-622a1314></div><label class=\"file-item-checkbox custom-control custom-checkbox\" data-v-622a1314><input type=\"checkbox\" class=\"custom-control-input\" data-v-622a1314><span class=\"custom-control-label\" data-v-622a1314></span></label><div class=\"file-item-icon far fa-folder text-secondary\" data-v-622a1314></div><a href=\"javascript:void(0)\" class=\"file-item-name\" data-v-622a1314> Images </a><div class=\"file-item-changed\" data-v-622a1314>02/13/2018</div><div class=\"file-item-actions btn-group\" data-v-622a1314><button type=\"button\" class=\"btn btn-default btn-sm rounded-pill icon-btn borderless md-btn-flat hide-arrow dropdown-toggle\" data-toggle=\"dropdown\" data-v-622a1314><i class=\"ion ion-ios-more\" data-v-622a1314></i></button><div class=\"dropdown-menu dropdown-menu-right\" data-v-622a1314><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Rename</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Move</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Copy</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Remove</a></div></div></div><div class=\"file-item\" data-v-622a1314><div class=\"file-item-select-bg bg-primary\" data-v-622a1314></div><label class=\"file-item-checkbox custom-control custom-checkbox\" data-v-622a1314><input type=\"checkbox\" class=\"custom-control-input\" data-v-622a1314><span class=\"custom-control-label\" data-v-622a1314></span></label><div class=\"file-item-img\" style=\"background-image:url(https://bootdey.com/img/Content/avatar/avatar1.png);\" data-v-622a1314></div><a href=\"javascript:void(0)\" class=\"file-item-name\" data-v-622a1314> Image-1.jpg </a><div class=\"file-item-changed\" data-v-622a1314>02/20/2018</div><div class=\"file-item-actions btn-group\" data-v-622a1314><button type=\"button\" class=\"btn btn-default btn-sm rounded-pill icon-btn borderless md-btn-flat hide-arrow dropdown-toggle\" data-toggle=\"dropdown\" data-v-622a1314><i class=\"ion ion-ios-more\" data-v-622a1314></i></button><div class=\"dropdown-menu dropdown-menu-right\" data-v-622a1314><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Rename</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Move</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Copy</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Remove</a></div></div></div>", 2);
+
+var _hoisted_23 = {
+  key: 0,
+  "class": "col-md-4"
+};
+
+var _hoisted_24 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Информация", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_25 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Общий доступ: нет", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_26 = ["src"];
+
+var _hoisted_27 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_28 = ["href"];
+
+var _hoisted_29 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    "class": "btn btn-primary"
+  }, "Share", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_30 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    "class": "btn btn-danger"
+  }, "Delete", -1
+  /* HOISTED */
+  );
+});
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [_hoisted_1, _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
@@ -30191,7 +30285,45 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[1] || (_cache[1] = function () {
       return _ctx.uploadFile && _ctx.uploadFile.apply(_ctx, arguments);
     })
-  }, _hoisted_12)])]), _hoisted_13]), _hoisted_14]), _hoisted_15])])]);
+  }, _hoisted_12)])]), _hoisted_13]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.listFiles, function (file) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      key: file.id,
+      "class": "file-item",
+      onClick: function onClick($event) {
+        return _ctx.clickByFile(file);
+      }
+    }, [_hoisted_18, _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      "class": "file-item-img",
+      style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
+        'background-image': "url(".concat(file.path, ")")
+      })
+    }, null, 4
+    /* STYLE */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(file.name), 1
+    /* TEXT */
+    )], 8
+    /* PROPS */
+    , _hoisted_17);
+  }), 128
+  /* KEYED_FRAGMENT */
+  )), _hoisted_21])]), _ctx.selectedFile ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_23, [_hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Имя: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.selectedFile.name), 1
+  /* TEXT */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Размер: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.selectedFile.size), 1
+  /* TEXT */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Загружен: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.selectedFile.file_uploaded_at), 1
+  /* TEXT */
+  ), _hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: _ctx.selectedFile.path,
+    alt: "",
+    "class": "preview_image"
+  }, null, 8
+  /* PROPS */
+  , _hoisted_26), _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    href: '/file/download/' + _ctx.selectedFile.id,
+    "class": "btn btn-primary"
+  }, "Download", 8
+  /* PROPS */
+  , _hoisted_28), _hoisted_29, _hoisted_30])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]);
 }
 
 /***/ }),
@@ -36844,7 +36976,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nbody[data-v-622a1314]{margin-top:20px;}\n.file-manager-actions[data-v-622a1314] {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    justify-content: space-between;\n}\n.file-manager-actions > *[data-v-622a1314] {\r\n    display: flex;\r\n    flex-wrap: wrap;\n}\n.file-manager-container[data-v-622a1314] {\r\n    display: flex;\r\n    flex-wrap: wrap;\n}\n.file-item[data-v-622a1314] {\r\n    position: relative;\r\n    z-index: 1;\r\n    flex: 0 0 auto;\r\n    border: 1px solid #eee;\r\n    cursor: pointer;\n}\n.file-item[data-v-622a1314]:hover,\r\n.file-item.focused[data-v-622a1314] {\r\n    border-color: rgba(0, 0, 0, 0.05);\n}\n.file-item.focused[data-v-622a1314] {\r\n    z-index: 2;\n}\n.file-item *[data-v-622a1314] {\r\n    flex-shrink: 0;\r\n    text-decoration:none;\n}\n.dark-style .file-item[data-v-622a1314]:hover,\r\n.dark-style .file-item.focused[data-v-622a1314] {\r\n    border-color: rgba(255, 255, 255, 0.2);\n}\n.file-item-checkbox[data-v-622a1314] {\r\n    margin: 0 !important;\n}\n.file-item-select-bg[data-v-622a1314] {\r\n    position: absolute;\r\n    top: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    left: 0;\r\n    z-index: -1;\r\n    opacity: 0;\n}\n.file-item-img[data-v-622a1314] {\r\n    background-color: transparent;\r\n    background-position: center center;\r\n    background-size: cover;\n}\n.file-item-name[data-v-622a1314] {\r\n    display: block;\r\n    overflow: hidden;\n}\n.file-manager-col-view .file-item[data-v-622a1314] {\r\n    margin: 0 0.25rem 0.25rem 0;\r\n    padding: 1.25rem 0 1rem 0;\r\n    width: 9rem;\r\n    text-align: center;\n}\n[dir=\"rtl\"] .file-manager-col-view .file-item[data-v-622a1314] {\r\n    margin-right: 0;\r\n    margin-left: 0.25rem;\n}\n.file-manager-col-view .file-item-img[data-v-622a1314],\r\n.file-manager-col-view .file-item-icon[data-v-622a1314] {\r\n    display: block;\r\n    margin: 0 auto 0.75rem auto;\r\n    width: 4rem;\r\n    height: 4rem;\r\n    font-size: 2.5rem;\r\n    line-height: 4rem;\n}\n.file-manager-col-view .file-item-level-up[data-v-622a1314] {\r\n    font-size: 1.5rem;\n}\n.file-manager-col-view .file-item-checkbox[data-v-622a1314],\r\n.file-manager-col-view .file-item-actions[data-v-622a1314] {\r\n    position: absolute;\r\n    top: 6px;\n}\n.file-manager-col-view .file-item-checkbox[data-v-622a1314] {\r\n    left: 6px;\n}\n[dir=\"rtl\"] .file-manager-col-view .file-item-checkbox[data-v-622a1314] {\r\n    right: 6px;\r\n    left: auto;\n}\n.file-manager-col-view .file-item-actions[data-v-622a1314] {\r\n    right: 6px;\n}\n[dir=\"rtl\"] .file-manager-col-view .file-item-actions[data-v-622a1314] {\r\n    right: auto;\r\n    left: 6px;\n}\n.file-manager-col-view .file-item-name[data-v-622a1314] {\r\n    width: 100%;\n}\n.file-manager-col-view .file-manager-row-header[data-v-622a1314],\r\n.file-manager-col-view .file-item-changed[data-v-622a1314] {\r\n    display: none;\n}\n.file-manager-row-view .file-manager-row-header[data-v-622a1314],\r\n.file-manager-row-view .file-item[data-v-622a1314] {\r\n    display: flex;\r\n    align-items: center;\r\n    margin: 0 0 0.125rem 0;\r\n    padding: 0.25rem 3rem 0.25rem 2.25em;\r\n    width: 100%;\n}\n[dir=\"rtl\"] .file-manager-row-view .file-manager-row-header[data-v-622a1314],\r\n[dir=\"rtl\"] .file-manager-row-view .file-item[data-v-622a1314] {\r\n    padding-right: 2.25em;\r\n    padding-left: 3rem;\n}\n.file-manager-row-view .file-item-img[data-v-622a1314],\r\n.file-manager-row-view .file-item-icon[data-v-622a1314] {\r\n    display: block;\r\n    margin: 0 1rem;\r\n    width: 2rem;\r\n    height: 2rem;\r\n    text-align: center;\r\n    font-size: 1.25rem;\r\n    line-height: 2rem;\n}\n.file-manager-row-view .file-item-level-up[data-v-622a1314] {\r\n    font-size: 1rem;\n}\n.file-manager-row-view .file-item-checkbox[data-v-622a1314],\r\n.file-manager-row-view .file-item-actions[data-v-622a1314] {\r\n    position: absolute;\r\n    top: 50%;\r\n    transform: translateY(-50%);\n}\n.file-manager-row-view .file-item-checkbox[data-v-622a1314] {\r\n    left: 10px;\n}\n[dir=\"rtl\"] .file-manager-row-view .file-item-checkbox[data-v-622a1314] {\r\n    right: 10px;\r\n    left: auto;\n}\n.file-manager-row-view .file-item-actions[data-v-622a1314] {\r\n    right: 10px;\n}\n[dir=\"rtl\"] .file-manager-row-view .file-item-actions[data-v-622a1314] {\r\n    right: auto;\r\n    left: 10px;\n}\n.file-manager-row-view .file-item-changed[data-v-622a1314] {\r\n    display: none;\r\n    margin-left: auto;\r\n    width: 10rem;\n}\n[dir=\"rtl\"] .file-manager-row-view .file-item-changed[data-v-622a1314] {\r\n    margin-right: auto;\r\n    margin-left: 0;\n}\n.file-manager-row-view .file-item-name[data-v-622a1314] {\r\n    width: calc(100% - 4rem);\n}\n.file-manager-row-view .file-manager-row-header[data-v-622a1314] {\r\n    border-bottom: 2px solid rgba(0, 0, 0, 0.05);\r\n    font-weight: bold;\n}\n.file-manager-row-view .file-manager-row-header .file-item-name[data-v-622a1314] {\r\n    margin-left: 4rem;\n}\n[dir=\"rtl\"] .file-manager-row-view .file-manager-row-header .file-item-name[data-v-622a1314] {\r\n    margin-right: 4rem;\r\n    margin-left: 0;\n}\n.light-style .file-item-name[data-v-622a1314] {\r\n    color: #4e5155 !important;\n}\n.light-style .file-item.selected .file-item-select-bg[data-v-622a1314] {\r\n    opacity: 0.15;\n}\n@media (min-width: 768px) {\n.light-style .file-manager-row-view .file-item-changed[data-v-622a1314] {\r\n        display: block;\n}\n.light-style .file-manager-row-view .file-item-name[data-v-622a1314] {\r\n        width: calc(100% - 15rem);\n}\n}\n@media (min-width: 992px) {\n.light-style .file-manager-col-view .file-item-checkbox[data-v-622a1314],\r\n    .light-style .file-manager-col-view .file-item-actions[data-v-622a1314] {\r\n        opacity: 0;\n}\n.light-style .file-manager-col-view .file-item:hover .file-item-checkbox[data-v-622a1314],\r\n    .light-style .file-manager-col-view .file-item.focused .file-item-checkbox[data-v-622a1314],\r\n    .light-style .file-manager-col-view .file-item.selected .file-item-checkbox[data-v-622a1314],\r\n    .light-style .file-manager-col-view .file-item:hover .file-item-actions[data-v-622a1314],\r\n    .light-style .file-manager-col-view .file-item.focused .file-item-actions[data-v-622a1314],\r\n    .light-style .file-manager-col-view .file-item.selected .file-item-actions[data-v-622a1314] {\r\n        opacity: 1;\n}\n}\n.material-style .file-item-name[data-v-622a1314] {\r\n    color: #4e5155 !important;\n}\n.material-style .file-item.selected .file-item-select-bg[data-v-622a1314] {\r\n    opacity: 0.15;\n}\n@media (min-width: 768px) {\n.material-style .file-manager-row-view .file-item-changed[data-v-622a1314] {\r\n        display: block;\n}\n.material-style .file-manager-row-view .file-item-name[data-v-622a1314] {\r\n        width: calc(100% - 15rem);\n}\n}\n@media (min-width: 992px) {\n.material-style .file-manager-col-view .file-item-checkbox[data-v-622a1314],\r\n    .material-style .file-manager-col-view .file-item-actions[data-v-622a1314] {\r\n        opacity: 0;\n}\n.material-style .file-manager-col-view .file-item:hover .file-item-checkbox[data-v-622a1314],\r\n    .material-style .file-manager-col-view .file-item.focused .file-item-checkbox[data-v-622a1314],\r\n    .material-style .file-manager-col-view .file-item.selected .file-item-checkbox[data-v-622a1314],\r\n    .material-style .file-manager-col-view .file-item:hover .file-item-actions[data-v-622a1314],\r\n    .material-style .file-manager-col-view .file-item.focused .file-item-actions[data-v-622a1314],\r\n    .material-style .file-manager-col-view .file-item.selected .file-item-actions[data-v-622a1314] {\r\n        opacity: 1;\n}\n}\n.dark-style .file-item-name[data-v-622a1314] {\r\n    color: #fff !important;\n}\n.dark-style .file-item.selected .file-item-select-bg[data-v-622a1314] {\r\n    opacity: 0.15;\n}\n@media (min-width: 768px) {\n.dark-style .file-manager-row-view .file-item-changed[data-v-622a1314] {\r\n        display: block;\n}\n.dark-style .file-manager-row-view .file-item-name[data-v-622a1314] {\r\n        width: calc(100% - 15rem);\n}\n}\n@media (min-width: 992px) {\n.dark-style .file-manager-col-view .file-item-checkbox[data-v-622a1314],\r\n    .dark-style .file-manager-col-view .file-item-actions[data-v-622a1314] {\r\n        opacity: 0;\n}\n.dark-style .file-manager-col-view .file-item:hover .file-item-checkbox[data-v-622a1314],\r\n    .dark-style .file-manager-col-view .file-item.focused .file-item-checkbox[data-v-622a1314],\r\n    .dark-style .file-manager-col-view .file-item.selected .file-item-checkbox[data-v-622a1314],\r\n    .dark-style .file-manager-col-view .file-item:hover .file-item-actions[data-v-622a1314],\r\n    .dark-style .file-manager-col-view .file-item.focused .file-item-actions[data-v-622a1314],\r\n    .dark-style .file-manager-col-view .file-item.selected .file-item-actions[data-v-622a1314] {\r\n        opacity: 1;\n}\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nbody[data-v-622a1314]{margin-top:20px;}\n.preview_image[data-v-622a1314]{\r\n    max-width: 400px;\r\n    max-height: 400px;\n}\n.file-manager-actions[data-v-622a1314] {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    justify-content: space-between;\n}\n.file-manager-actions > *[data-v-622a1314] {\r\n    display: flex;\r\n    flex-wrap: wrap;\n}\n.file-manager-container[data-v-622a1314] {\r\n    display: flex;\r\n    flex-wrap: wrap;\n}\n.file-item[data-v-622a1314] {\r\n    position: relative;\r\n    z-index: 1;\r\n    flex: 0 0 auto;\r\n    border: 1px solid #eee;\r\n    cursor: pointer;\n}\n.file-item[data-v-622a1314]:hover,\r\n.file-item.focused[data-v-622a1314] {\r\n    border-color: rgba(0, 0, 0, 0.05);\n}\n.file-item.focused[data-v-622a1314] {\r\n    z-index: 2;\n}\n.file-item *[data-v-622a1314] {\r\n    flex-shrink: 0;\r\n    text-decoration:none;\n}\n.dark-style .file-item[data-v-622a1314]:hover,\r\n.dark-style .file-item.focused[data-v-622a1314] {\r\n    border-color: rgba(255, 255, 255, 0.2);\n}\n.file-item-checkbox[data-v-622a1314] {\r\n    margin: 0 !important;\n}\n.file-item-select-bg[data-v-622a1314] {\r\n    position: absolute;\r\n    top: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    left: 0;\r\n    z-index: -1;\r\n    opacity: 0;\n}\n.file-item-img[data-v-622a1314] {\r\n    background-color: transparent;\r\n    background-position: center center;\r\n    background-size: cover;\n}\n.file-item-name[data-v-622a1314] {\r\n    display: block;\r\n    overflow: hidden;\n}\n.file-manager-col-view .file-item[data-v-622a1314] {\r\n    margin: 0 0.25rem 0.25rem 0;\r\n    padding: 1.25rem 0 1rem 0;\r\n    width: 9rem;\r\n    text-align: center;\n}\n[dir=\"rtl\"] .file-manager-col-view .file-item[data-v-622a1314] {\r\n    margin-right: 0;\r\n    margin-left: 0.25rem;\n}\n.file-manager-col-view .file-item-img[data-v-622a1314],\r\n.file-manager-col-view .file-item-icon[data-v-622a1314] {\r\n    display: block;\r\n    margin: 0 auto 0.75rem auto;\r\n    width: 4rem;\r\n    height: 4rem;\r\n    font-size: 2.5rem;\r\n    line-height: 4rem;\n}\n.file-manager-col-view .file-item-level-up[data-v-622a1314] {\r\n    font-size: 1.5rem;\n}\n.file-manager-col-view .file-item-checkbox[data-v-622a1314],\r\n.file-manager-col-view .file-item-actions[data-v-622a1314] {\r\n    position: absolute;\r\n    top: 6px;\n}\n.file-manager-col-view .file-item-checkbox[data-v-622a1314] {\r\n    left: 6px;\n}\n[dir=\"rtl\"] .file-manager-col-view .file-item-checkbox[data-v-622a1314] {\r\n    right: 6px;\r\n    left: auto;\n}\n.file-manager-col-view .file-item-actions[data-v-622a1314] {\r\n    right: 6px;\n}\n[dir=\"rtl\"] .file-manager-col-view .file-item-actions[data-v-622a1314] {\r\n    right: auto;\r\n    left: 6px;\n}\n.file-manager-col-view .file-item-name[data-v-622a1314] {\r\n    width: 100%;\n}\n.file-manager-col-view .file-manager-row-header[data-v-622a1314],\r\n.file-manager-col-view .file-item-changed[data-v-622a1314] {\r\n    display: none;\n}\n.file-manager-row-view .file-manager-row-header[data-v-622a1314],\r\n.file-manager-row-view .file-item[data-v-622a1314] {\r\n    display: flex;\r\n    align-items: center;\r\n    margin: 0 0 0.125rem 0;\r\n    padding: 0.25rem 3rem 0.25rem 2.25em;\r\n    width: 100%;\n}\n[dir=\"rtl\"] .file-manager-row-view .file-manager-row-header[data-v-622a1314],\r\n[dir=\"rtl\"] .file-manager-row-view .file-item[data-v-622a1314] {\r\n    padding-right: 2.25em;\r\n    padding-left: 3rem;\n}\n.file-manager-row-view .file-item-img[data-v-622a1314],\r\n.file-manager-row-view .file-item-icon[data-v-622a1314] {\r\n    display: block;\r\n    margin: 0 1rem;\r\n    width: 2rem;\r\n    height: 2rem;\r\n    text-align: center;\r\n    font-size: 1.25rem;\r\n    line-height: 2rem;\n}\n.file-manager-row-view .file-item-level-up[data-v-622a1314] {\r\n    font-size: 1rem;\n}\n.file-manager-row-view .file-item-checkbox[data-v-622a1314],\r\n.file-manager-row-view .file-item-actions[data-v-622a1314] {\r\n    position: absolute;\r\n    top: 50%;\r\n    transform: translateY(-50%);\n}\n.file-manager-row-view .file-item-checkbox[data-v-622a1314] {\r\n    left: 10px;\n}\n[dir=\"rtl\"] .file-manager-row-view .file-item-checkbox[data-v-622a1314] {\r\n    right: 10px;\r\n    left: auto;\n}\n.file-manager-row-view .file-item-actions[data-v-622a1314] {\r\n    right: 10px;\n}\n[dir=\"rtl\"] .file-manager-row-view .file-item-actions[data-v-622a1314] {\r\n    right: auto;\r\n    left: 10px;\n}\n.file-manager-row-view .file-item-changed[data-v-622a1314] {\r\n    display: none;\r\n    margin-left: auto;\r\n    width: 10rem;\n}\n[dir=\"rtl\"] .file-manager-row-view .file-item-changed[data-v-622a1314] {\r\n    margin-right: auto;\r\n    margin-left: 0;\n}\n.file-manager-row-view .file-item-name[data-v-622a1314] {\r\n    width: calc(100% - 4rem);\n}\n.file-manager-row-view .file-manager-row-header[data-v-622a1314] {\r\n    border-bottom: 2px solid rgba(0, 0, 0, 0.05);\r\n    font-weight: bold;\n}\n.file-manager-row-view .file-manager-row-header .file-item-name[data-v-622a1314] {\r\n    margin-left: 4rem;\n}\n[dir=\"rtl\"] .file-manager-row-view .file-manager-row-header .file-item-name[data-v-622a1314] {\r\n    margin-right: 4rem;\r\n    margin-left: 0;\n}\n.light-style .file-item-name[data-v-622a1314] {\r\n    color: #4e5155 !important;\n}\n.light-style .file-item.selected .file-item-select-bg[data-v-622a1314] {\r\n    opacity: 0.15;\n}\n@media (min-width: 768px) {\n.light-style .file-manager-row-view .file-item-changed[data-v-622a1314] {\r\n        display: block;\n}\n.light-style .file-manager-row-view .file-item-name[data-v-622a1314] {\r\n        width: calc(100% - 15rem);\n}\n}\n@media (min-width: 992px) {\n.light-style .file-manager-col-view .file-item-checkbox[data-v-622a1314],\r\n    .light-style .file-manager-col-view .file-item-actions[data-v-622a1314] {\r\n        opacity: 0;\n}\n.light-style .file-manager-col-view .file-item:hover .file-item-checkbox[data-v-622a1314],\r\n    .light-style .file-manager-col-view .file-item.focused .file-item-checkbox[data-v-622a1314],\r\n    .light-style .file-manager-col-view .file-item.selected .file-item-checkbox[data-v-622a1314],\r\n    .light-style .file-manager-col-view .file-item:hover .file-item-actions[data-v-622a1314],\r\n    .light-style .file-manager-col-view .file-item.focused .file-item-actions[data-v-622a1314],\r\n    .light-style .file-manager-col-view .file-item.selected .file-item-actions[data-v-622a1314] {\r\n        opacity: 1;\n}\n}\n.material-style .file-item-name[data-v-622a1314] {\r\n    color: #4e5155 !important;\n}\n.material-style .file-item.selected .file-item-select-bg[data-v-622a1314] {\r\n    opacity: 0.15;\n}\n@media (min-width: 768px) {\n.material-style .file-manager-row-view .file-item-changed[data-v-622a1314] {\r\n        display: block;\n}\n.material-style .file-manager-row-view .file-item-name[data-v-622a1314] {\r\n        width: calc(100% - 15rem);\n}\n}\n@media (min-width: 992px) {\n.material-style .file-manager-col-view .file-item-checkbox[data-v-622a1314],\r\n    .material-style .file-manager-col-view .file-item-actions[data-v-622a1314] {\r\n        opacity: 0;\n}\n.material-style .file-manager-col-view .file-item:hover .file-item-checkbox[data-v-622a1314],\r\n    .material-style .file-manager-col-view .file-item.focused .file-item-checkbox[data-v-622a1314],\r\n    .material-style .file-manager-col-view .file-item.selected .file-item-checkbox[data-v-622a1314],\r\n    .material-style .file-manager-col-view .file-item:hover .file-item-actions[data-v-622a1314],\r\n    .material-style .file-manager-col-view .file-item.focused .file-item-actions[data-v-622a1314],\r\n    .material-style .file-manager-col-view .file-item.selected .file-item-actions[data-v-622a1314] {\r\n        opacity: 1;\n}\n}\n.dark-style .file-item-name[data-v-622a1314] {\r\n    color: #fff !important;\n}\n.dark-style .file-item.selected .file-item-select-bg[data-v-622a1314] {\r\n    opacity: 0.15;\n}\n@media (min-width: 768px) {\n.dark-style .file-manager-row-view .file-item-changed[data-v-622a1314] {\r\n        display: block;\n}\n.dark-style .file-manager-row-view .file-item-name[data-v-622a1314] {\r\n        width: calc(100% - 15rem);\n}\n}\n@media (min-width: 992px) {\n.dark-style .file-manager-col-view .file-item-checkbox[data-v-622a1314],\r\n    .dark-style .file-manager-col-view .file-item-actions[data-v-622a1314] {\r\n        opacity: 0;\n}\n.dark-style .file-manager-col-view .file-item:hover .file-item-checkbox[data-v-622a1314],\r\n    .dark-style .file-manager-col-view .file-item.focused .file-item-checkbox[data-v-622a1314],\r\n    .dark-style .file-manager-col-view .file-item.selected .file-item-checkbox[data-v-622a1314],\r\n    .dark-style .file-manager-col-view .file-item:hover .file-item-actions[data-v-622a1314],\r\n    .dark-style .file-manager-col-view .file-item.focused .file-item-actions[data-v-622a1314],\r\n    .dark-style .file-manager-col-view .file-item.selected .file-item-actions[data-v-622a1314] {\r\n        opacity: 1;\n}\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

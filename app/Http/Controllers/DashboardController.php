@@ -6,6 +6,7 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 use App\Services\FileService;
 
@@ -16,16 +17,14 @@ class DashboardController extends Controller
     {
         $this->fileService = $fileService;
     }
-//    public function index(){
-//
-//        $lastTask = $this->taskService->getLastTasks(4);
-//        $topTask = $this->taskService->getTopTasks(4);
-//
-//        return Inertia::render('Dashboard', [
-//            'lastTask' => $lastTask,
-//             'topTask' => $topTask
-//        ]);
-//    }
+    public function index(){
+
+        $listFiles = $this->fileService->getFiles(Auth::user()->id);
+
+        return Inertia::render('Dashboard', [
+            'listFiles' => $listFiles,
+        ]);
+    }
 
     public function indexBlock(){
         return Inertia::render('Block');
@@ -35,8 +34,9 @@ class DashboardController extends Controller
 
     }
 
-    public function updateFile(){
-
+    public function downloadFile($id){
+        $file = $this->fileService->getFileById($id);
+        return Storage::download($file->path);
     }
 
     public function uploadFile(Request $reguest){
