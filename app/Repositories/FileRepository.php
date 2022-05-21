@@ -18,6 +18,7 @@ class FileRepository{
         $file->user_id = $data['user_id'];
         $file->path = $data['path'];
         $file->size = $data['size'];
+        $file->type_file = $data['type_file'];
         $file->file_uploaded_at = $data['file_uploaded_at'];
         return $file->save();
     }
@@ -32,6 +33,11 @@ class FileRepository{
 
     public function getFileById($id){
         return $this->file->find($id);
+    }
+
+    public function delete($id){
+        $file = $this->file->find($id);
+        return $file->delete();
     }
 
 }

@@ -34,6 +34,11 @@ class DashboardController extends Controller
 
     }
 
+    public function listFile(){
+        $listFiles = $this->fileService->getFiles(Auth::user()->id);
+        return response()->json(['listFiles'=>$listFiles]);
+    }
+
     public function downloadFile($id){
         $file = $this->fileService->getFileById($id);
         return Storage::download($file->path);
@@ -46,8 +51,8 @@ class DashboardController extends Controller
         }
     }
 
-    public function deleteFile(){
-
+    public function deleteFile($id){
+        return $this->fileService->delete($id);
     }
     
 }

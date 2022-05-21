@@ -26202,12 +26202,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      files_list: [],
+      files_list: this.$page.props.listFiles,
       selectedFile: null
     };
   },
   methods: {
     uploadFile: function uploadFile() {
+      var _this = this;
+
       var data = new FormData();
       var filesLength = document.getElementById('file').files.length;
 
@@ -26221,7 +26223,7 @@ __webpack_require__.r(__webpack_exports__);
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
-        console.log(response.data); // Загрузка списка файлов
+        _this.loadFiles();
       })["catch"](function (error) {
         console.log(error);
       });
@@ -26229,9 +26231,20 @@ __webpack_require__.r(__webpack_exports__);
     clickByFile: function clickByFile(file) {
       this.selectedFile = file;
     },
-    downloadSelectedFile: function downloadSelectedFile(file) {
-      axios.get("/file/download/".concat(file.id)).then(function (response) {
-        console.log(response.data); // Загрузка списка файлов
+    deleteFile: function deleteFile(file) {
+      var _this2 = this;
+
+      axios.get("/file/delete/".concat(file.id)).then(function (response) {
+        _this2.loadFiles();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    loadFiles: function loadFiles() {
+      var _this3 = this;
+
+      axios.get("/file/list/").then(function (response) {
+        _this3.files_list = response.data.listFiles;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -30219,51 +30232,53 @@ var _hoisted_19 = /*#__PURE__*/_withScopeId(function () {
 });
 
 var _hoisted_20 = {
+  key: 1,
+  "class": "file-item-icon far fa-file text-secondary"
+};
+var _hoisted_21 = {
+  key: 2,
+  "class": "file-item-icon file-item-level-up fas fa-level-up-alt text-secondary"
+};
+var _hoisted_22 = {
   href: "javascript:void(0)",
   "class": "file-item-name"
 };
 
-var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"file-item\" data-v-622a1314><div class=\"file-item-select-bg bg-primary\" data-v-622a1314></div><label class=\"file-item-checkbox custom-control custom-checkbox\" data-v-622a1314><input type=\"checkbox\" class=\"custom-control-input\" data-v-622a1314><span class=\"custom-control-label\" data-v-622a1314></span></label><div class=\"file-item-icon far fa-folder text-secondary\" data-v-622a1314></div><a href=\"javascript:void(0)\" class=\"file-item-name\" data-v-622a1314> Images </a><div class=\"file-item-changed\" data-v-622a1314>02/13/2018</div><div class=\"file-item-actions btn-group\" data-v-622a1314><button type=\"button\" class=\"btn btn-default btn-sm rounded-pill icon-btn borderless md-btn-flat hide-arrow dropdown-toggle\" data-toggle=\"dropdown\" data-v-622a1314><i class=\"ion ion-ios-more\" data-v-622a1314></i></button><div class=\"dropdown-menu dropdown-menu-right\" data-v-622a1314><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Rename</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Move</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Copy</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Remove</a></div></div></div><div class=\"file-item\" data-v-622a1314><div class=\"file-item-select-bg bg-primary\" data-v-622a1314></div><label class=\"file-item-checkbox custom-control custom-checkbox\" data-v-622a1314><input type=\"checkbox\" class=\"custom-control-input\" data-v-622a1314><span class=\"custom-control-label\" data-v-622a1314></span></label><div class=\"file-item-img\" style=\"background-image:url(https://bootdey.com/img/Content/avatar/avatar1.png);\" data-v-622a1314></div><a href=\"javascript:void(0)\" class=\"file-item-name\" data-v-622a1314> Image-1.jpg </a><div class=\"file-item-changed\" data-v-622a1314>02/20/2018</div><div class=\"file-item-actions btn-group\" data-v-622a1314><button type=\"button\" class=\"btn btn-default btn-sm rounded-pill icon-btn borderless md-btn-flat hide-arrow dropdown-toggle\" data-toggle=\"dropdown\" data-v-622a1314><i class=\"ion ion-ios-more\" data-v-622a1314></i></button><div class=\"dropdown-menu dropdown-menu-right\" data-v-622a1314><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Rename</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Move</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Copy</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Remove</a></div></div></div>", 2);
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"file-item\" data-v-622a1314><div class=\"file-item-select-bg bg-primary\" data-v-622a1314></div><label class=\"file-item-checkbox custom-control custom-checkbox\" data-v-622a1314><input type=\"checkbox\" class=\"custom-control-input\" data-v-622a1314><span class=\"custom-control-label\" data-v-622a1314></span></label><div class=\"file-item-icon far fa-folder text-secondary\" data-v-622a1314></div><a href=\"javascript:void(0)\" class=\"file-item-name\" data-v-622a1314> Images </a><div class=\"file-item-changed\" data-v-622a1314>02/13/2018</div><div class=\"file-item-actions btn-group\" data-v-622a1314><button type=\"button\" class=\"btn btn-default btn-sm rounded-pill icon-btn borderless md-btn-flat hide-arrow dropdown-toggle\" data-toggle=\"dropdown\" data-v-622a1314><i class=\"ion ion-ios-more\" data-v-622a1314></i></button><div class=\"dropdown-menu dropdown-menu-right\" data-v-622a1314><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Rename</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Move</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Copy</a><a class=\"dropdown-item\" href=\"javascript:void(0)\" data-v-622a1314>Remove</a></div></div></div>", 1);
 
-var _hoisted_23 = {
+var _hoisted_24 = {
   key: 0,
   "class": "col-md-4"
 };
 
-var _hoisted_24 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_25 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Информация", -1
   /* HOISTED */
   );
 });
 
-var _hoisted_25 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_26 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Общий доступ: нет", -1
   /* HOISTED */
   );
 });
 
-var _hoisted_26 = ["src"];
+var _hoisted_27 = ["src"];
 
-var _hoisted_27 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_28 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
   /* HOISTED */
   );
 });
 
-var _hoisted_28 = ["href"];
-
-var _hoisted_29 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-    "class": "btn btn-primary"
-  }, "Share", -1
-  /* HOISTED */
-  );
-});
+var _hoisted_29 = ["href"];
 
 var _hoisted_30 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-    "class": "btn btn-danger"
-  }, "Delete", -1
+    href: "#",
+    "class": "btn btn-primary",
+    role: "button"
+  }, "Share", -1
   /* HOISTED */
   );
 });
@@ -30285,45 +30300,52 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[1] || (_cache[1] = function () {
       return _ctx.uploadFile && _ctx.uploadFile.apply(_ctx, arguments);
     })
-  }, _hoisted_12)])]), _hoisted_13]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.listFiles, function (file) {
+  }, _hoisted_12)])]), _hoisted_13]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.files_list, function (file) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       key: file.id,
       "class": "file-item",
       onClick: function onClick($event) {
         return _ctx.clickByFile(file);
       }
-    }, [_hoisted_18, _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    }, [_hoisted_18, _hoisted_19, file.type_file === 'image' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      key: 0,
       "class": "file-item-img",
       style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
         'background-image': "url(".concat(file.path, ")")
       })
     }, null, 4
     /* STYLE */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(file.name), 1
+    )) : file.type_file !== null ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_20)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_21)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(file.name), 1
     /* TEXT */
     )], 8
     /* PROPS */
     , _hoisted_17);
   }), 128
   /* KEYED_FRAGMENT */
-  )), _hoisted_21])]), _ctx.selectedFile ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_23, [_hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Имя: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.selectedFile.name), 1
+  )), _hoisted_23])]), _ctx.selectedFile ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_24, [_hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Имя: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.selectedFile.name), 1
   /* TEXT */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Размер: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.selectedFile.size), 1
   /* TEXT */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Загружен: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.selectedFile.file_uploaded_at), 1
   /* TEXT */
-  ), _hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  ), _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: _ctx.selectedFile.path,
     alt: "",
     "class": "preview_image"
   }, null, 8
   /* PROPS */
-  , _hoisted_26), _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  , _hoisted_27), _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: '/file/download/' + _ctx.selectedFile.id,
     "class": "btn btn-primary"
   }, "Download", 8
   /* PROPS */
-  , _hoisted_28), _hoisted_29, _hoisted_30])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]);
+  , _hoisted_29), _hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    onClick: _cache[2] || (_cache[2] = function ($event) {
+      return _ctx.deleteFile(_ctx.selectedFile);
+    }),
+    "class": "btn btn-danger",
+    role: "button"
+  }, "Delete")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]);
 }
 
 /***/ }),

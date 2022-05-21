@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('path')->nullable();
             $table->string('shared_link')->nullable();
             $table->integer('size');
-            $table->string('type')->nullable();
+            $table->string('type_file')->nullable();
             $table->timestamp('file_uploaded_at')->nullable();
             $table->timestamps();
         });

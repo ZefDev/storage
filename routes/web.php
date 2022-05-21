@@ -46,6 +46,8 @@ Route::middleware(['auth:sanctum', 'verified','isBlock'])->group(function () {
 
     Route::post('/file/upload', [DashboardController::class, 'uploadFile']);
     Route::get('/file/download/{id}', [DashboardController::class, 'downloadFile']);
+    Route::get('/file/delete/{id}', [DashboardController::class, 'deleteFile']);
+    Route::get('/file/list/', [DashboardController::class, 'listFile']);
 });
 
 Route::middleware(['auth:sanctum', 'verified'])

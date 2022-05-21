@@ -45,27 +45,24 @@
               </a>
             </div>
 
-
-
-
-            <div v-for="file in listFiles" :key="file.id" class="file-item" @click="clickByFile(file)">
+            <div v-for="file in files_list" :key="file.id" class="file-item" @click="clickByFile(file)">
               <div class="file-item-select-bg bg-primary"></div>
               <label class="file-item-checkbox custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" />
                 <span class="custom-control-label"></span>
               </label>
-              <div class="file-item-img" :style="{
+              <div v-if="file.type_file === 'image'" class="file-item-img" :style="{
                   'background-image': `url(${file.path})`,
                 }"></div>
+
+              <div v-else-if="file.type_file !== null" class="file-item-icon far fa-file text-secondary"></div>
+
+              <div v-else class="file-item-icon file-item-level-up fas fa-level-up-alt text-secondary"></div>
+
               <a href="javascript:void(0)" class="file-item-name">
                 {{file.name}}
               </a>
             </div>
-
-
-
-
-
 
             <div class="file-item">
               <div class="file-item-select-bg bg-primary"></div>
@@ -89,28 +86,6 @@
               </div>
             </div>
 
-            <div class="file-item">
-              <div class="file-item-select-bg bg-primary"></div>
-              <label class="file-item-checkbox custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" />
-                <span class="custom-control-label"></span>
-              </label>
-              <div class="file-item-img" style="background-image: url(https://bootdey.com/img/Content/avatar/avatar1.png);"></div>
-              <a href="javascript:void(0)" class="file-item-name">
-                Image-1.jpg
-              </a>
-              <div class="file-item-changed">02/20/2018</div>
-              <div class="file-item-actions btn-group">
-                <button type="button" class="btn btn-default btn-sm rounded-pill icon-btn borderless md-btn-flat hide-arrow dropdown-toggle" data-toggle="dropdown"><i class="ion ion-ios-more"></i></button>
-                <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item" href="javascript:void(0)">Rename</a>
-                  <a class="dropdown-item" href="javascript:void(0)">Move</a>
-                  <a class="dropdown-item" href="javascript:void(0)">Copy</a>
-                  <a class="dropdown-item" href="javascript:void(0)">Remove</a>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
         <div class="col-md-4" v-if="selectedFile">
@@ -122,8 +97,8 @@
           <img :src="selectedFile.path" alt="" class="preview_image">
           <br>
           <a :href="'/file/download/'+selectedFile.id" class="btn btn-primary">Download</a>
-          <a class="btn btn-primary">Share</a>
-          <a class="btn btn-danger">Delete</a>
+          <a href="#" class="btn btn-primary" role="button">Share</a>
+          <a @click="deleteFile(selectedFile)" class="btn btn-danger" role="button">Delete</a>
         </div>
       </div>
 
@@ -429,7 +404,7 @@ export default defineComponent({
     },
     data: function (){
         return{
-            files_list: [],
+            files_list: this.$page.props.listFiles,
             selectedFile: null,
         }
     },
@@ -447,8 +422,7 @@ export default defineComponent({
                     'Content-Type': 'multipart/form-data'
                 }
             }).then(response=>{
-                console.log(response.data);
-                // Загрузка списка файлов
+                this.loadFiles();
             })
             .catch(error =>{
                 console.log(error);
@@ -457,10 +431,17 @@ export default defineComponent({
         clickByFile(file){
             this.selectedFile = file;
         },
-        downloadSelectedFile(file){
-            axios.get(`/file/download/${file.id}`).then(response=>{
-                console.log(response.data);
-                // Загрузка списка файлов
+        deleteFile(file){
+            axios.get(`/file/delete/${file.id}`).then(response=>{
+                this.loadFiles();
+            })
+            .catch(error =>{
+                console.log(error);
+            });
+        },
+        loadFiles(){
+            axios.get(`/file/list/`).then(response=>{
+                this.files_list = response.data.listFiles;
             })
             .catch(error =>{
                 console.log(error);

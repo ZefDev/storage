@@ -30,13 +30,14 @@ class FileService
         foreach ($files as $file) {
             $path = Storage::putFile($user->directory, $file, '');
             $size = number_format(Storage::size($path) / 1048576,2);
+            $type = explode("/", Storage::mimeType($path))[0];
 
             $data = array(
                 'name' => basename($path),
                 'user_id' => $user->id,
                 'path' => $path, //Storage::url(
                 'size' => $size,
-                'type' => '1',
+                'type_file' => $type,
                 'file_uploaded_at' => now()->toDateTime(),
             );
 
@@ -56,6 +57,8 @@ class FileService
     }
     
     public function delete($id){
+        $file = $this->fileRepository->getFileByid($id);
+        Storage::delete($file->path);
         return $this->fileRepository->delete($id);
     }
 

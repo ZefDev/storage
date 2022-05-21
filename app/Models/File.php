@@ -19,7 +19,7 @@ class File extends Model
         'user_id',
         'path',
         'size',
-        'type',
+        'type_file',
         'file_uploaded_at',
     ];
 
