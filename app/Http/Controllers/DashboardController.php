@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-
+use App\Http\Resources\FileCollection;
+use App\Http\Resources\FileResource;
 use App\Services\FileService;
 
 class DashboardController extends Controller
@@ -22,7 +23,7 @@ class DashboardController extends Controller
         $listFiles = $this->fileService->getFiles(Auth::user()->id);
 
         return Inertia::render('Dashboard', [
-            'listFiles' => $listFiles,
+            'data' => new FileCollection($listFiles),
         ]);
     }
 
@@ -36,7 +37,7 @@ class DashboardController extends Controller
 
     public function listFile(){
         $listFiles = $this->fileService->getFiles(Auth::user()->id);
-        return response()->json(['listFiles'=>$listFiles]);
+        return new FileCollection($listFiles);
     }
 
     public function downloadFile($id){

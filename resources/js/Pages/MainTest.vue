@@ -404,7 +404,7 @@ export default defineComponent({
     },
     data: function (){
         return{
-            files_list: this.$page.props.listFiles,
+            files_list: this.$page.props.data.data.listFiles,
             selectedFile: null,
         }
     },
@@ -432,6 +432,7 @@ export default defineComponent({
             this.selectedFile = file;
         },
         deleteFile(file){
+            console.log(file);
             axios.get(`/file/delete/${file.id}`).then(response=>{
                 this.loadFiles();
             })
@@ -441,7 +442,7 @@ export default defineComponent({
         },
         loadFiles(){
             axios.get(`/file/list/`).then(response=>{
-                this.files_list = response.data.listFiles;
+                this.files_list = response.data.data.listFiles;
             })
             .catch(error =>{
                 console.log(error);

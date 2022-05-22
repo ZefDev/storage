@@ -26202,7 +26202,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      files_list: this.$page.props.listFiles,
+      files_list: this.$page.props.data.data.listFiles,
       selectedFile: null
     };
   },
@@ -26234,6 +26234,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteFile: function deleteFile(file) {
       var _this2 = this;
 
+      console.log(file);
       axios.get("/file/delete/".concat(file.id)).then(function (response) {
         _this2.loadFiles();
       })["catch"](function (error) {
@@ -26244,7 +26245,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       axios.get("/file/list/").then(function (response) {
-        _this3.files_list = response.data.listFiles;
+        _this3.files_list = response.data.data.listFiles;
       })["catch"](function (error) {
         console.log(error);
       });
